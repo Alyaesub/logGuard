@@ -13,6 +13,9 @@ file_path = input("Entrez le nom du fichier a analyser : ")
 
 #appel de la fonction qui lis le fichier mis en path
 lines = read_log(file_path)
+if not lines:
+  print("Erreur, fichier inutilisable")
+  exit(1)
 
 #appel de la fonction qui fait le compte des status de connexion
 result = count_status(lines)
@@ -34,4 +37,4 @@ fail_by_ip = count_fail_by_ip(lines)
 suspicious_ips = get_suspicious_ips(fail_by_ip, THRESHOLD)
 
 #print le résumé
-show_summary(result, file_path)
+show_summary(result, file_path, fail_by_ip, suspicious_ips)

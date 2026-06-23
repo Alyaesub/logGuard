@@ -1,14 +1,28 @@
 #fonction qui lis le fichier mis en path
 def read_log(path):
-  with open(path) as file:
-      lines = file.readlines()
-    
+  try:
+    with open(path) as file:
+        lines = file.readlines()
+  except FileNotFoundError:
+    print("Erreur: Fichier introuvable")
+    return []
+  
   clean_lines = []
-    
-  for line in lines:
-      clean_lines.append(line.strip())
       
+  for line in lines:
+    clean_line = line.strip()
+    if clean_line != "":
+      clean_lines.append(clean_line)
+  
   return clean_lines
+
+#fonction qui analyse le statut d'une ligne
+def extract_status(line):
+  if "SUCCESS" in line:
+    return "SUCCESS"
+  elif "FAIL" in line:
+    return "FAIL"
+  return None
 
 #fonction qui fait le compte des status de connexion
 def count_status(lines):
@@ -34,7 +48,9 @@ def extract_ip(line):
     if part.startswith("ip="):
       ip = part.split("=")[1]
       
-  return ip
+      return ip
+  
+  return None
 
 #function qui compte les tentative fail de co d'une ip
 def is_suspicious(count, threshold):
@@ -51,10 +67,11 @@ def count_fail_by_ip(lines):
     if "FAIL" in line:
       ip = extract_ip(line)
       
-      if ip not in fail_by_ip:
-        fail_by_ip[ip] = 1
-      else:
-        fail_by_ip[ip] += 1
+      if ip is not None:
+        if ip not in fail_by_ip:
+          fail_by_ip[ip] = 1
+        else:
+          fail_by_ip[ip] += 1
         
   return fail_by_ip
 
