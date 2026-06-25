@@ -2,8 +2,12 @@ from log_parser import (
     read_log, 
     count_status, 
     count_fail_by_ip, 
-    get_suspicious_ips 
+    get_suspicious_ips,
+    parse_log_line,
   )
+from reporter import (
+  show_summary,
+)
 
 #limite de tentative de co avant suspissions
 THRESHOLD = 4
@@ -17,24 +21,22 @@ if not lines:
   print("Erreur, fichier inutilisable")
   exit(1)
 
-#appel de la fonction qui fait le compte des status de connexion
-result = count_status(lines)
+#parsing des lignes centralisé et mis en liste
+parsed_logs = [] #liste qui sert de bd ou je stock les lines parsé
 
-#fonction qui résume et affiche le resultat de read_log et count_status
-def show_summary(result, file_path,  fail_by_ip, suspicious_ips):
-  print("===== Résumé LogGuard =====")
-  print(f"===== Nom du fichier : {file_path} =====")
-  print("SUCCESS :", result["success"])
-  print("FAIL :", result["fail"])
-  print("FAIL by IP :", fail_by_ip)
-  print("IP suspect :", suspicious_ips)
-  print("===================================")
+for line in lines:
+  parsed = parse_log_line(line)
+  if parsed is not None:
+    parsed_logs.append(parsed)
+
+#appel de la fonction qui fait le compte des status de connexion
+result = count_status(parsed_logs)
 
 #variable qui stock le nombre de fail par ip
-fail_by_ip = count_fail_by_ip(lines)
+fail_by_ip = count_fail_by_ip(parsed_logs)
 
 #variable qui stock les ip suspect
 suspicious_ips = get_suspicious_ips(fail_by_ip, THRESHOLD)
 
 #print le résumé
-show_summary(result, file_path, fail_by_ip, suspicious_ips)
+show_summary(result, file_path, fail_by_ip, suspicious_ips, parsed_logs)
