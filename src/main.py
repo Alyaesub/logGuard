@@ -7,6 +7,7 @@ from log_parser import (
   )
 from reporter import (
   show_summary,
+  write_report,
 )
 
 #limite de tentative de co avant suspissions
@@ -40,3 +41,10 @@ suspicious_ips = get_suspicious_ips(fail_by_ip, THRESHOLD)
 
 #print le résumé
 show_summary(result, file_path, fail_by_ip, suspicious_ips, parsed_logs)
+
+# appel la function qui ecrit le rapport
+write_report(result, file_path, fail_by_ip, suspicious_ips, parsed_logs)
+print("Rapport généré : reports/report.txt")
+
+
+############# teste des fonctions ##########

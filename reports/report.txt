@@ -1,0 +1,18 @@
+====== LogGuard Report ======
+Date du rapport: 27-06-2026 21:58:05
+Nom du fichier: ressources/logs_simple.txt
+Nombre de lignes exploitable: 23
+
+SUCCESS connexions: 6
+FAIL connexions: 17
+
+FAIL by IP:
+ - 192.168.1.45 : 4 FAIL
+ - 10.0.0.5 : 3 FAIL
+ - 172.16.0.8 : 4 FAIL
+ - 203.0.113.9 : 6 FAIL
+
+IP suspectes:
+ - 192.168.1.45 : 4 FAIL
+ - 172.16.0.8 : 4 FAIL
+ - 203.0.113.9 : 6 FAIL
