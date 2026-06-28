@@ -125,3 +125,14 @@ def parse_log_line(line):
     "user": user,
     "timestamp": timestamp
   }
+
+#function qui parse toutes les lineS et qui les met dans la liste parsed_logs dans main
+def parse_log_lines(lines):
+  parsed_logs = [] #liste qui sert de bd ou je stock les lines parsé
+  
+  for line in lines:
+    parsed = parse_log_line(line)
+    if parsed is not None:
+      parsed_logs.append(parsed)
+  
+  return parsed_logs

@@ -1,5 +1,5 @@
 ====== LogGuard Report ======
-Date du rapport: 27-06-2026 21:58:05
+Date du rapport: 28-06-2026 23:01:56
 Nom du fichier: ressources/logs_simple.txt
 Nombre de lignes exploitable: 23
 
