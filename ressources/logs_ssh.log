@@ -1,0 +1,5 @@
+Jun 25 14:31:15 ubuntu sshd[1234]: Failed password for root from 192.168.1.45 port 49822 ssh2
+Jun 25 14:31:18 ubuntu sshd[1234]: Failed password for root from 192.168.1.45 port 49823 ssh2
+Jun 25 14:31:22 ubuntu sshd[1234]: Failed password for invalid user admin from 203.0.113.9 port 53012 ssh2
+Jun 25 14:31:25 ubuntu sshd[1234]: Accepted password for aly from 192.168.1.10 port 49830 ssh2
+Jun 25 14:31:30 ubuntu sshd[1234]: Failed password for test from 203.0.113.9 port 53013 ssh2

@@ -1,14 +1,9 @@
-[
-  {
-    "ip": "192.168.1.45",
-    "fail_count": 4
-  },
-  {
-    "ip": "172.16.0.8",
-    "fail_count": 4
-  },
-  {
-    "ip": "203.0.113.9",
-    "fail_count": 6
-  }
-]
+{
+  "file_path": "ressources/logs_mixed.txt",
+  "generated_at": "29-06-2026 19:20:45",
+  "threshold": 4,
+  "parsed_count": 4,
+  "success": 2,
+  "fail": 2,
+  "alerts": []
+}

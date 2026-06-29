@@ -28,38 +28,48 @@ def show_summary(report_data):
   print("===================================")
 
 #function qui ouvre et ecrit un rapport.txt dans /reports
-def write_report(result, file_path, fail_by_ip, suspicious_ips, parsed_logs):
+def write_report(report_data):
   with open('reports/report.txt', 'w') as f:
     f.write("====== LogGuard Report ======\n")
-    f.write(f"Date du rapport: {get_current_timestamp()}\n")
-    f.write(f"Nom du fichier: {file_path}\n")
-    f.write(f"Nombre de lignes exploitable: {len(parsed_logs)}\n")
+    f.write(f"Date du rapport: {report_data['generated_at']}\n")
+    f.write(f"Nom du fichier: {report_data['file_path']}\n")
+    f.write(f"Nombre de lignes exploitable: {report_data['parsed_count']}\n")
     f.write("\n")
-    f.write(f"SUCCESS connexions: {result['success']}\n")
-    f.write(f"FAIL connexions: {result['fail']}\n")
+    f.write(f"SUCCESS connexions: {report_data['success']}\n")
+    f.write(f"FAIL connexions: {report_data['fail']}\n")
     f.write("\n")
     f.write(f"FAIL by IP:\n")
-    for ip, count in fail_by_ip.items():
+    for ip, count in report_data["fail_by_ip"].items():
       f.write(f" - {ip} : {count} FAIL\n")
     f.write("\n")
     f.write(f"IP suspectes:\n")
-    if suspicious_ips:
-      for ip in suspicious_ips:
-        f.write(f" - {ip} : {fail_by_ip[ip]} FAIL\n")
+    if report_data["suspicious_ips"]:
+      for ip in report_data["suspicious_ips"]:
+        f.write(f" - {ip} : {report_data['fail_by_ip'][ip]} FAIL\n")
     else:
       f.write("Aucune IP suspecte détectée\n")
 
 # function qui écrit un rapport d'alerte en JSON dans /reports
-def write_json_alerts(fail_by_ip, suspicious_ips):
-  alerts = []#créé un liste pour chaque ip
+def write_json_alerts(report_data):
+  alerts = []# liste des alerts ip
   
-  if suspicious_ips:
-    for ip in suspicious_ips:
+  if report_data["suspicious_ips"]:
+    for ip in report_data["suspicious_ips"]:
       suspicious_ip_json = {
         "ip": ip,
-        "fail_count": fail_by_ip[ip] 
+        "fail_count": report_data["fail_by_ip"][ip]
       }
       alerts.append(suspicious_ip_json)
     
-    with open("reports/alerts.json", "w") as f:
-      json.dump(alerts, f, indent=2)
+  json_report = {
+    "file_path":report_data["file_path"],
+    "generated_at": report_data["generated_at"],
+    "threshold": report_data["threshold"],
+    "parsed_count": report_data["parsed_count"],
+    "success": report_data["success"],
+    "fail": report_data["fail"],
+    "alerts": alerts,
+  }
+  
+  with open("reports/alerts.json", "w") as f:
+    json.dump(json_report, f, indent=2)

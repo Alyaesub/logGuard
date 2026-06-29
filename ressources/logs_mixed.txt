@@ -1,0 +1,8 @@
+2026-05-13 10:01:22 LOGIN SUCCESS user=admin ip=192.168.1.10
+2026-05-13 10:02:11 LOGIN FAIL user=root ip=192.168.1.45
+
+ligne totalement invalide
+LOGIN FAIL user=root
+2026-05-13 10:03:05 LOGIN FAIL ip=192.168.1.45
+ERROR database timeout
+2026-05-13 10:04:18 LOGIN SUCCESS user=guest ip=192.168.1.20

@@ -1,4 +1,3 @@
-import re
 from log_parser import ( 
     read_log, 
     count_status, 
@@ -54,11 +53,11 @@ report_data = {
 show_summary(report_data)
 
 # appel la function qui ecrit le rapport
-write_report(result, file_path, fail_by_ip, suspicious_ips, parsed_logs)
+write_report(report_data)
 print("Rapport généré : reports/report.txt")
 
 # appel la function qui ecrit le rapport d'alerte en JSON 
-write_json_alerts(fail_by_ip, suspicious_ips)
+write_json_alerts(report_data)
 print("Rapport généré : reports/alerts.json")
 
 
