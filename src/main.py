@@ -1,3 +1,6 @@
+import argparse
+import logging
+
 from log_parser import ( 
     read_log, 
     count_status, 
@@ -13,12 +16,32 @@ from reporter import (
   write_json_alerts,
 )
 
+############ config de la lib Logging
+logging.basicConfig(
+    level=logging.INFO, #affiche les messages INFO, WARNING, ERROR
+    format="%(levelname)s - %(message)s"
+)
+#####################################
+
+################### argparse et commande CLI
+parser = argparse.ArgumentParser(description="Parser de fichier de logs")
+parser.add_argument("--file", required=True, help="argument obligatoire : fichier logs")
+parser.add_argument(
+    "--threshold",
+    type=int,
+    default=4,
+    help="Seuil de FAIL à partir duquel une IP est suspecte"
+)
+args = parser.parse_args()
+############################################
 
 #limite de tentative de co avant suspissions
-THRESHOLD = 4
+THRESHOLD = args.threshold
 
 #récup le path mis en input
-file_path = input("Entrez le nom du fichier a analyser : ")
+file_path = args.file
+logging.info("Début de l'analyse")
+logging.info(f"Fichier reçu : {file_path}")
 
 #appel de la fonction qui lis le fichier mis en path
 lines = read_log(file_path)
@@ -28,6 +51,7 @@ if not lines:
 
 #parsing des lignes centralisé et mis en liste
 parsed_logs = parse_log_lines(lines) #liste qui sert de bd ou je stock les lines parsé
+logging.info(f"{len(parsed_logs)} lignes exploitables")
 
 #appel de la fonction qui fait le compte des status de connexion
 result = count_status(parsed_logs)
@@ -37,6 +61,7 @@ fail_by_ip = count_fail_by_ip(parsed_logs)
 
 #variable qui stock les ip suspect
 suspicious_ips = get_suspicious_ips(fail_by_ip, THRESHOLD)
+logging.warning(f"{len(suspicious_ips)} IP suspectes détectées")
 
 #variable qui stock les fails par user
 fail_by_user = count_fail_by_user(parsed_logs)
@@ -59,11 +84,11 @@ show_summary(report_data)
 
 # appel la function qui ecrit le rapport
 write_report(report_data)
-print("Rapport généré : reports/report.txt")
+logging.info("Rapport texte généré")
 
 # appel la function qui ecrit le rapport d'alerte en JSON 
 write_json_alerts(report_data)
-print("Rapport généré : reports/alerts.json")
+logging.info("Rapport JSON généré")
 
 
 ############# teste des fonctions ##########

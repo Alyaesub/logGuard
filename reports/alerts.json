@@ -1,14 +1,31 @@
 {
-  "file_path": "ressources/logs_ssh.log",
-  "generated_at": "30-06-2026 19:31:27",
-  "threshold": 4,
-  "parsed_count": 5,
-  "success": 1,
-  "fail": 4,
+  "file_path": "ressources/logs_simple.txt",
+  "generated_at": "30-06-2026 20:05:12",
+  "threshold": 3,
+  "parsed_count": 23,
+  "success": 6,
+  "fail": 17,
   "fail_by_user": {
-    "root": 2,
-    "admin": 1,
-    "test": 1
+    "root": 9,
+    "admin": 5,
+    "test": 3
   },
-  "alerts": []
+  "alerts": [
+    {
+      "ip": "192.168.1.45",
+      "fail_count": 4
+    },
+    {
+      "ip": "10.0.0.5",
+      "fail_count": 3
+    },
+    {
+      "ip": "172.16.0.8",
+      "fail_count": 4
+    },
+    {
+      "ip": "203.0.113.9",
+      "fail_count": 6
+    }
+  ]
 }

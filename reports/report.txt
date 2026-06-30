@@ -1,20 +1,25 @@
 ====== LogGuard Report ======
 
-Date du rapport: 30-06-2026 19:31:27
-Nom du fichier: ressources/logs_ssh.log
-Nombre de lignes exploitable: 5
+Date du rapport: 30-06-2026 20:05:12
+Nom du fichier: ressources/logs_simple.txt
+Nombre de lignes exploitable: 23
 
-SUCCESS connexions: 1
-FAIL connexions: 4
+SUCCESS connexions: 6
+FAIL connexions: 17
 
 FAIL by IP:
- - 192.168.1.45 : 2 FAIL
- - 203.0.113.9 : 2 FAIL
+ - 192.168.1.45 : 4 FAIL
+ - 10.0.0.5 : 3 FAIL
+ - 172.16.0.8 : 4 FAIL
+ - 203.0.113.9 : 6 FAIL
 
 FAIL by User:
- - root : 2 FAIL
- - admin : 1 FAIL
- - test : 1 FAIL
+ - root : 9 FAIL
+ - admin : 5 FAIL
+ - test : 3 FAIL
 
 IP suspectes:
-Aucune IP suspecte détectée
+ - 192.168.1.45 : 4 FAIL
+ - 10.0.0.5 : 3 FAIL
+ - 172.16.0.8 : 4 FAIL
+ - 203.0.113.9 : 6 FAIL
