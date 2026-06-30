@@ -19,10 +19,18 @@ def read_log(path):
 #fonction qui analyse le statut d'une ligne
 # pour plus tard rajouter des status en fonction des formats
 def extract_status(line):
+  #format .txt
   if "SUCCESS" in line:
     return "SUCCESS"
   elif "FAIL" in line:
     return "FAIL"
+  
+  #format ssh.log
+  if "Accepted password" in line:
+    return "SUCCESS"
+  if "Failed password" in line:
+    return "FAIL"
+  
   return None
 
 #fonction qui fait le compte des status de connexion
@@ -45,11 +53,15 @@ def count_status(parsed_logs):
 def extract_ip(line):
   parts = line.split()
   
-  for part in parts:
-    if part.startswith("ip="):
-      ip = part.split("=")[1]
-      
+  for i in range(len(parts)):
+    # Format txt
+    if parts[i].startswith("ip="):
+      ip = parts[i].split("=")[1]
       return ip
+      # format ssh.log
+    elif parts[i].startswith("from"):
+      if i + 1 < len(parts):
+        return parts[i + 1]
   
   return None
 
@@ -57,10 +69,22 @@ def extract_ip(line):
 def extract_user(line):
   parts = line.split()
   
-  for part in parts:
-    if part.startswith("user="):
-      user = part.split("=") [1]
+  for i in range(len(parts)):
+    # format txt
+    if parts[i].startswith("user="):
+      user = parts[i].split("=") [1]
       return user
+    #format ssh.log
+    elif parts[i] == "for":
+      if i + 1 < len(parts):
+        if parts[i + 1] != "invalid":
+          user = parts[i + 1]
+          return user
+    elif parts[i] == "invalid":
+      if i + 2 < len(parts):
+        if parts[i + 1] == "user":
+          user = parts[i + 2]
+          return user
   
   return None
 
@@ -95,6 +119,20 @@ def count_fail_by_ip(parsed_logs):
           fail_by_ip[log["ip"]] += 1
   
   return fail_by_ip
+
+#functio qui compte les fails par user
+def count_fail_by_user(parsed_logs):
+  fail_by_user = {}
+  
+  for log in parsed_logs:
+    if log["user"] is not None:
+      if log["status"] == "FAIL":
+        if log["user"] not in fail_by_user:
+          fail_by_user[log["user"]] = 1
+        else:
+          fail_by_user[log["user"]] += 1
+  
+  return fail_by_user
 
 #function qui stock les IP suspectes
 def get_suspicious_ips(fail_by_ip, threshold):

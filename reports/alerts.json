@@ -1,9 +1,14 @@
 {
-  "file_path": "ressources/logs_mixed.txt",
-  "generated_at": "29-06-2026 19:20:45",
+  "file_path": "ressources/logs_ssh.log",
+  "generated_at": "30-06-2026 19:31:27",
   "threshold": 4,
-  "parsed_count": 4,
-  "success": 2,
-  "fail": 2,
+  "parsed_count": 5,
+  "success": 1,
+  "fail": 4,
+  "fail_by_user": {
+    "root": 2,
+    "admin": 1,
+    "test": 1
+  },
   "alerts": []
 }

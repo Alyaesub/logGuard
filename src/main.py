@@ -4,6 +4,7 @@ from log_parser import (
     count_fail_by_ip, 
     get_suspicious_ips,
     parse_log_lines,
+    count_fail_by_user,
   )
 from reporter import (
   get_current_timestamp,
@@ -37,6 +38,9 @@ fail_by_ip = count_fail_by_ip(parsed_logs)
 #variable qui stock les ip suspect
 suspicious_ips = get_suspicious_ips(fail_by_ip, THRESHOLD)
 
+#variable qui stock les fails par user
+fail_by_user = count_fail_by_user(parsed_logs)
+
 #dict qui contient les parametre pour les function d'affichage et d'ecriture
 report_data = {
   "file_path": file_path,
@@ -46,6 +50,7 @@ report_data = {
   "success": result["success"],
   "fail": result["fail"],
   "fail_by_ip": fail_by_ip,
+  "fail_by_user": fail_by_user,
   "suspicious_ips": suspicious_ips,
 }
 

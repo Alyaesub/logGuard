@@ -11,13 +11,22 @@ def get_current_timestamp():
 #fonction qui résume et affiche le resultat dans le terminal
 def show_summary(report_data):
   print("============= Résumé LogGuard =============")
+  print()
   print(f"===== Nom du fichier : {report_data['file_path']} =====")
+  print()
   print("Date du rapport:", report_data["generated_at"])
   print()
   print("Nombre de lignes exploitable:", report_data["parsed_count"])
   print()
   print("SUCCESS connexions:", report_data["success"])
   print("FAIL connexions:", report_data["fail"])
+  print()
+  print("FAIL by user:")
+  if report_data["fail_by_user"]:
+    for user in report_data["fail_by_user"]:
+      print(f" - {user} : {report_data['fail_by_user'][user]} FAIL")
+  else:
+    print("Aucun User suspect détectée")
   print()
   print("IP suspectes:")
   if report_data["suspicious_ips"]:
@@ -31,6 +40,7 @@ def show_summary(report_data):
 def write_report(report_data):
   with open('reports/report.txt', 'w') as f:
     f.write("====== LogGuard Report ======\n")
+    f.write("\n")
     f.write(f"Date du rapport: {report_data['generated_at']}\n")
     f.write(f"Nom du fichier: {report_data['file_path']}\n")
     f.write(f"Nombre de lignes exploitable: {report_data['parsed_count']}\n")
@@ -41,6 +51,10 @@ def write_report(report_data):
     f.write(f"FAIL by IP:\n")
     for ip, count in report_data["fail_by_ip"].items():
       f.write(f" - {ip} : {count} FAIL\n")
+    f.write("\n")
+    f.write(f"FAIL by User:\n")
+    for user, count in report_data["fail_by_user"].items():
+      f.write(f" - {user} : {count} FAIL\n")
     f.write("\n")
     f.write(f"IP suspectes:\n")
     if report_data["suspicious_ips"]:
@@ -68,6 +82,7 @@ def write_json_alerts(report_data):
     "parsed_count": report_data["parsed_count"],
     "success": report_data["success"],
     "fail": report_data["fail"],
+    "fail_by_user": report_data["fail_by_user"],
     "alerts": alerts,
   }
   
