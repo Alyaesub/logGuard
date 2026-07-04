@@ -15,6 +15,9 @@ from reporter import (
   write_report,
   write_json_alerts,
 )
+from network_tools import (
+  scan_suspicious_ips,
+)
 
 ############ config de la lib Logging
 logging.basicConfig(
@@ -66,6 +69,9 @@ logging.warning(f"{len(suspicious_ips)} IP suspectes détectées")
 #variable qui stock les fails par user
 fail_by_user = count_fail_by_user(parsed_logs)
 
+#variable qui stock les scan des IP suspecte
+scanned_suspicious_ips = scan_suspicious_ips(suspicious_ips, [443, 22, 80])
+
 #dict qui contient les parametre pour les function d'affichage et d'ecriture
 report_data = {
   "file_path": file_path,
@@ -77,6 +83,7 @@ report_data = {
   "fail_by_ip": fail_by_ip,
   "fail_by_user": fail_by_user,
   "suspicious_ips": suspicious_ips,
+  "scanned_suspicious_ips": scanned_suspicious_ips,
 }
 
 #print le résumé

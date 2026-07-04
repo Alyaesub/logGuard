@@ -34,6 +34,14 @@ def show_summary(report_data):
       print(f" - {ip} : {report_data['fail_by_ip'][ip]} FAIL")
   else:
     print("Aucune IP suspecte détectée")
+  print()
+  print("Scan des IP suspectes:")
+  if report_data["suspicious_ips"]:
+    for ip, ports in report_data["scanned_suspicious_ips"].items():
+      print(f" - {ip} :")
+      for port, is_open in ports.items():
+        status = "OPEN" if is_open else "CLOSED"
+        print(f"    {port} : {status}")
   print("===================================")
 
 #function qui ouvre et ecrit un rapport.txt dans /reports
