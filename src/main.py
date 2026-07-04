@@ -17,6 +17,7 @@ from reporter import (
 )
 from network_tools import (
   scan_suspicious_ips,
+  reverse_dns_suspicious_ips,
 )
 
 ############ config de la lib Logging
@@ -72,6 +73,10 @@ fail_by_user = count_fail_by_user(parsed_logs)
 #variable qui stock les scan des IP suspecte
 scanned_suspicious_ips = scan_suspicious_ips(suspicious_ips, [443, 22, 80])
 
+#variable qui stock les revers DNS des ips suspectes
+reverse_dns_by_ip = reverse_dns_suspicious_ips(suspicious_ips)
+logging.warning(f"{len(reverse_dns_by_ip)} DNS détectées")
+
 #dict qui contient les parametre pour les function d'affichage et d'ecriture
 report_data = {
   "file_path": file_path,
@@ -84,6 +89,7 @@ report_data = {
   "fail_by_user": fail_by_user,
   "suspicious_ips": suspicious_ips,
   "scanned_suspicious_ips": scanned_suspicious_ips,
+  "reverse_dns_by_ip": reverse_dns_by_ip,
 }
 
 #print le résumé

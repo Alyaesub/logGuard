@@ -165,3 +165,16 @@ Responsabilités :
 # Objectif du projet
 
 Au-delà de l'apprentissage de Python, LogGuard a pour objectif de devenir un véritable outil d'analyse de logs orienté cybersécurité, construit progressivement avec une architecture propre, modulaire et facilement extensible.
+
+#scan de plusieur IP et de leurs port
+les ip suspecte sont scanner et les port aussi
+
+Idées futures / Issues possibles
+
+- Support Apache/Nginx complet
+- Support Windows Event Logs
+- Export CSV
+- Dockerfile
+- GeoIP
+- Tests unitaires
+- Support Wazuh/Elastic

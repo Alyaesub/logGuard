@@ -35,13 +35,18 @@ def show_summary(report_data):
   else:
     print("Aucune IP suspecte détectée")
   print()
-  print("Scan des IP suspectes:")
+  print("Scan des ports des IP suspectes:")
   if report_data["suspicious_ips"]:
     for ip, ports in report_data["scanned_suspicious_ips"].items():
       print(f" - {ip} :")
       for port, is_open in ports.items():
         status = "OPEN" if is_open else "CLOSED"
         print(f"    {port} : {status}")
+  print()
+  print("Reverse DNS des IP suspectes:")
+  if report_data["suspicious_ips"]:
+    for ip, hostname in report_data["reverse_dns_by_ip"].items():
+      print(f" - {ip} : {hostname}")
   print("===================================")
 
 #function qui ouvre et ecrit un rapport.txt dans /reports
@@ -70,6 +75,23 @@ def write_report(report_data):
         f.write(f" - {ip} : {report_data['fail_by_ip'][ip]} FAIL\n")
     else:
       f.write("Aucune IP suspecte détectée\n")
+    f.write("\n")
+    f.write(f"Scan des ports des IP suspectes:\n")
+    if report_data["suspicious_ips"]:
+      for ip, ports in report_data["scanned_suspicious_ips"].items():
+        f.write(f" - {ip} :\n")
+        for port, is_open in ports.items():
+          status = "OPEN" if is_open else "CLOSED"
+          f.write(f"    {port} : {status}\n")
+    else:
+      f.write("Aucun scan réseau effectué\n")
+    f.write("\n")
+    f.write(f"Reverse DNS des IP suspectes:\n")
+    if report_data["suspicious_ips"]:
+      for ip, hostname in report_data["reverse_dns_by_ip"].items():
+        f.write(f" - {ip} : {hostname}\n")
+    else:
+      f.write("Hostname Non résolu\n")
 
 # function qui écrit un rapport d'alerte en JSON dans /reports
 def write_json_alerts(report_data):
@@ -92,6 +114,8 @@ def write_json_alerts(report_data):
     "fail": report_data["fail"],
     "fail_by_user": report_data["fail_by_user"],
     "alerts": alerts,
+    "scanned_suspicious_ips": report_data["scanned_suspicious_ips"],
+    "reverse_dns_by_ip": report_data["reverse_dns_by_ip"],
   }
   
   with open("reports/alerts.json", "w") as f:

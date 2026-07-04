@@ -1,25 +1,57 @@
 ====== LogGuard Report ======
 
-Date du rapport: 04-07-2026 14:01:18
+Date du rapport: 04-07-2026 20:48:28
 Nom du fichier: ressources/logs_simple.txt
-Nombre de lignes exploitable: 23
+Nombre de lignes exploitable: 28
 
-SUCCESS connexions: 6
-FAIL connexions: 17
+SUCCESS connexions: 7
+FAIL connexions: 21
 
 FAIL by IP:
  - 192.168.1.45 : 4 FAIL
  - 10.0.0.5 : 3 FAIL
  - 172.16.0.8 : 4 FAIL
  - 203.0.113.9 : 6 FAIL
+ - 8.8.8.8 : 4 FAIL
 
 FAIL by User:
  - root : 9 FAIL
  - admin : 5 FAIL
  - test : 3 FAIL
+ - guest : 4 FAIL
 
 IP suspectes:
  - 192.168.1.45 : 4 FAIL
  - 10.0.0.5 : 3 FAIL
  - 172.16.0.8 : 4 FAIL
  - 203.0.113.9 : 6 FAIL
+ - 8.8.8.8 : 4 FAIL
+
+Scan des ports des IP suspectes:
+ - 192.168.1.45 :
+    443 : CLOSED
+    22 : CLOSED
+    80 : CLOSED
+ - 10.0.0.5 :
+    443 : CLOSED
+    22 : CLOSED
+    80 : CLOSED
+ - 172.16.0.8 :
+    443 : CLOSED
+    22 : CLOSED
+    80 : CLOSED
+ - 203.0.113.9 :
+    443 : OPEN
+    22 : CLOSED
+    80 : OPEN
+ - 8.8.8.8 :
+    443 : OPEN
+    22 : CLOSED
+    80 : OPEN
+
+Reverse DNS des IP suspectes:
+ - 192.168.1.45 : None
+ - 10.0.0.5 : None
+ - 172.16.0.8 : None
+ - 203.0.113.9 : None
+ - 8.8.8.8 : dns.google

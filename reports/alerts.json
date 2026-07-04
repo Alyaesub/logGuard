@@ -1,14 +1,15 @@
 {
   "file_path": "ressources/logs_simple.txt",
-  "generated_at": "04-07-2026 14:01:18",
+  "generated_at": "04-07-2026 20:48:28",
   "threshold": 3,
-  "parsed_count": 23,
-  "success": 6,
-  "fail": 17,
+  "parsed_count": 28,
+  "success": 7,
+  "fail": 21,
   "fail_by_user": {
     "root": 9,
     "admin": 5,
-    "test": 3
+    "test": 3,
+    "guest": 4
   },
   "alerts": [
     {
@@ -26,6 +27,44 @@
     {
       "ip": "203.0.113.9",
       "fail_count": 6
+    },
+    {
+      "ip": "8.8.8.8",
+      "fail_count": 4
     }
-  ]
+  ],
+  "scanned_suspicious_ips": {
+    "192.168.1.45": {
+      "443": false,
+      "22": false,
+      "80": false
+    },
+    "10.0.0.5": {
+      "443": false,
+      "22": false,
+      "80": false
+    },
+    "172.16.0.8": {
+      "443": false,
+      "22": false,
+      "80": false
+    },
+    "203.0.113.9": {
+      "443": true,
+      "22": false,
+      "80": true
+    },
+    "8.8.8.8": {
+      "443": true,
+      "22": false,
+      "80": true
+    }
+  },
+  "reverse_dns_by_ip": {
+    "192.168.1.45": null,
+    "10.0.0.5": null,
+    "172.16.0.8": null,
+    "203.0.113.9": null,
+    "8.8.8.8": "dns.google"
+  }
 }

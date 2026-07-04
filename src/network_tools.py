@@ -34,3 +34,23 @@ def scan_suspicious_ips(suspicious_ips, ports):
     suspicious_ips_scanned[ip] = result
   
   return suspicious_ips_scanned
+
+
+# function qui sert a reverse DNS de l'ip
+def resolve_hostname(ip):
+  try:
+    result = socket.gethostbyaddr(ip)
+    hostname = result[0]
+    return hostname
+  except socket.error :
+    return None
+
+#function qui revers DNS les ips suspecte
+def reverse_dns_suspicious_ips(suspicious_ips):
+  suspicious_ips_resolved = {}
+  
+  for ip in suspicious_ips:
+    result = resolve_hostname(ip)
+    suspicious_ips_resolved[ip] = result
+  
+  return suspicious_ips_resolved
