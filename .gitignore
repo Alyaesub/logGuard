@@ -1,2 +1,15 @@
+# Environnement virtuel
 .venv/
+
+# VS Code
 .vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Rapports générés
+reports/

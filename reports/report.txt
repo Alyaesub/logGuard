@@ -1,6 +1,6 @@
 ====== LogGuard Report ======
 
-Date du rapport: 11-07-2026 17:09:34
+Date du rapport: 11-07-2026 20:03:28
 Nom du fichier: ressources/logs_simple.txt
 Nombre de lignes exploitable: 28
 
@@ -41,13 +41,13 @@ Scan des ports des IP suspectes:
     22 : CLOSED
     80 : CLOSED
  - 203.0.113.9 :
-    443 : CLOSED
+    443 : OPEN
     22 : CLOSED
-    80 : CLOSED
+    80 : OPEN
  - 8.8.8.8 :
-    443 : CLOSED
+    443 : OPEN
     22 : CLOSED
-    80 : CLOSED
+    80 : OPEN
 
 Reverse DNS des IP suspectes:
  - 192.168.1.45 : None
@@ -64,6 +64,8 @@ Statut HTTP des ports ouvert pour les IP suspecte:
  - 172.16.0.8 :
    Aucun port web ouvert
  - 203.0.113.9 :
-   Aucun port web ouvert
+   Port 443 - reachable: False - status_code: None
+   Port 80 - reachable: False - status_code: None
  - 8.8.8.8 :
-   Aucun port web ouvert
+   Port 443 - reachable: True - status_code: 200
+   Port 80 - reachable: False - status_code: None

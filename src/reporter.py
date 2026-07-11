@@ -113,9 +113,10 @@ def write_report(report_data):
           f.write(f"   Aucun port web ouvert\n")
         else:
           for port, http_result in ports.items():
-            f.write(f"   Port {port}")
-            f.write(f"   reachable: {http_result['reachable']}")
-            f.write(f"   status_code: {http_result['status_code']}")
+            f.write(
+                f"   Port {port} - reachable: {http_result['reachable']} "
+                f"- status_code: {http_result['status_code']}\n"
+            )
 
 
 # function qui écrit un rapport d'alerte en JSON dans /reports

@@ -1,6 +1,6 @@
 {
   "file_path": "ressources/logs_simple.txt",
-  "generated_at": "11-07-2026 17:09:34",
+  "generated_at": "11-07-2026 20:03:28",
   "threshold": 3,
   "parsed_count": 28,
   "success": 7,
@@ -50,14 +50,14 @@
       "80": false
     },
     "203.0.113.9": {
-      "443": false,
+      "443": true,
       "22": false,
-      "80": false
+      "80": true
     },
     "8.8.8.8": {
-      "443": false,
+      "443": true,
       "22": false,
-      "80": false
+      "80": true
     }
   },
   "reverse_dns_by_ip": {
@@ -71,7 +71,25 @@
     "192.168.1.45": {},
     "10.0.0.5": {},
     "172.16.0.8": {},
-    "203.0.113.9": {},
-    "8.8.8.8": {}
+    "203.0.113.9": {
+      "443": {
+        "reachable": false,
+        "status_code": null
+      },
+      "80": {
+        "reachable": false,
+        "status_code": null
+      }
+    },
+    "8.8.8.8": {
+      "443": {
+        "reachable": true,
+        "status_code": 200
+      },
+      "80": {
+        "reachable": false,
+        "status_code": null
+      }
+    }
   }
 }
