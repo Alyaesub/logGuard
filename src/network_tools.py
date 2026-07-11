@@ -1,4 +1,5 @@
 import socket
+import requests
 
 # function qui vérifie si un port est ouvert via l'ip
 def check_port(ip,port):
@@ -54,3 +55,44 @@ def reverse_dns_suspicious_ips(suspicious_ips):
     suspicious_ips_resolved[ip] = result
   
   return suspicious_ips_resolved
+
+# function qui envoie une requete http sur un port ouvert
+def check_http(ip, port):
+  if port == 80:
+    url = f"http://{ip}"
+  elif port == 443:
+    url = f"https://{ip}"
+  else:
+    return {
+      "reachable": False,
+      "status_code": None
+      }
+  
+  try: 
+    response = requests.get(url, timeout=3)
+    return {
+      "reachable": True,
+      "status_code": response.status_code,
+    }
+  except requests.RequestException:
+    return {
+      "reachable": False,
+      "status_code": None,
+      }
+
+#function qui envoie des requetes http sur les IPS suspectes
+def check_http_suspicious_ips(scanned_suspicious_ips):
+  request_suspicious_ips = {}
+  
+  for ip, ports in scanned_suspicious_ips.items():
+    http_results = {}
+    
+    for port, is_open in ports.items():
+      if is_open:
+        if port in [80, 443]:
+          result = check_http(ip,port)
+          http_results[port] = result
+    
+    request_suspicious_ips[ip] = http_results
+  
+  return request_suspicious_ips

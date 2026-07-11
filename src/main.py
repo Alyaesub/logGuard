@@ -18,6 +18,7 @@ from reporter import (
 from network_tools import (
   scan_suspicious_ips,
   reverse_dns_suspicious_ips,
+  check_http_suspicious_ips,
 )
 
 ############ config de la lib Logging
@@ -77,6 +78,9 @@ scanned_suspicious_ips = scan_suspicious_ips(suspicious_ips, [443, 22, 80])
 reverse_dns_by_ip = reverse_dns_suspicious_ips(suspicious_ips)
 logging.warning(f"{len(reverse_dns_by_ip)} DNS détectées")
 
+#variable qui stock les requetes HTTP sur les ports des IP suspectes
+http_checks_by_ip = check_http_suspicious_ips(scanned_suspicious_ips)
+
 #dict qui contient les parametre pour les function d'affichage et d'ecriture
 report_data = {
   "file_path": file_path,
@@ -90,6 +94,7 @@ report_data = {
   "suspicious_ips": suspicious_ips,
   "scanned_suspicious_ips": scanned_suspicious_ips,
   "reverse_dns_by_ip": reverse_dns_by_ip,
+  "http_checks_by_ip": http_checks_by_ip,
 }
 
 #print le résumé

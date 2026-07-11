@@ -47,6 +47,18 @@ def show_summary(report_data):
   if report_data["suspicious_ips"]:
     for ip, hostname in report_data["reverse_dns_by_ip"].items():
       print(f" - {ip} : {hostname}")
+  print()
+  print("Statut HTTP des ports ouvert pour les IP suspecte:")
+  if report_data["http_checks_by_ip"]:
+    for ip, ports in report_data["http_checks_by_ip"].items():
+      print(f" - {ip} :")
+      if not ports:
+        print("   Aucun port web ouvert")
+      else:
+        for port, http_result in ports.items():
+          print(f"   Port {port}")
+          print(f"   reachable: {http_result['reachable']}")
+          print(f"   status_code: {http_result['status_code']}")
   print("===================================")
 
 #function qui ouvre et ecrit un rapport.txt dans /reports
@@ -92,6 +104,19 @@ def write_report(report_data):
         f.write(f" - {ip} : {hostname}\n")
     else:
       f.write("Hostname Non résolu\n")
+    f.write("\n")
+    f.write(f"Statut HTTP des ports ouvert pour les IP suspecte:\n")
+    if report_data["http_checks_by_ip"]:
+      for ip, ports in report_data["http_checks_by_ip"].items():
+        f.write(f" - {ip} :\n")
+        if not ports:
+          f.write(f"   Aucun port web ouvert\n")
+        else:
+          for port, http_result in ports.items():
+            f.write(f"   Port {port}")
+            f.write(f"   reachable: {http_result['reachable']}")
+            f.write(f"   status_code: {http_result['status_code']}")
+
 
 # function qui écrit un rapport d'alerte en JSON dans /reports
 def write_json_alerts(report_data):
@@ -116,6 +141,7 @@ def write_json_alerts(report_data):
     "alerts": alerts,
     "scanned_suspicious_ips": report_data["scanned_suspicious_ips"],
     "reverse_dns_by_ip": report_data["reverse_dns_by_ip"],
+    "http_checks_by_ip": report_data["http_checks_by_ip"],
   }
   
   with open("reports/alerts.json", "w") as f:
