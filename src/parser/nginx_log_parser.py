@@ -34,8 +34,13 @@ class NginxLog:
     http_user_agent: str
 
 
-def parse() -> list[NginxLog]:
-    return []
+def parse(input: str) -> list[NginxLog]:
+    logs = []
+    for line in input.splitlines():
+        log = parse_line(line)
+        logs.append(log)
+
+    return logs
 
 
 def parse_line(input: str) -> NginxLog:
